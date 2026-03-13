@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAIMAN 4x4 — Кунги и оборудование для пикапов</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#08090C;--bg2:#0D1017;--bg3:#12151E;--white:#E2E2E2;--gray:#6B7280;--dim:#2A2F38;--orange:#D4782A;--orange2:#EB953F;--h:'Rajdhani',sans-serif;--b:'Barlow',sans-serif;--c:'Barlow Condensed',sans-serif}
+html{overflow-x:hidden;scroll-behavior:smooth}body{font-family:var(--b);background:var(--bg);color:var(--white);overflow-x:hidden}
+::selection{background:var(--orange);color:#000}img{display:block;max-width:100%}a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.s{background:rgba(8,9,12,.96);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.04)}
+.logo{font-family:var(--h);font-size:1.3rem;font-weight:700;letter-spacing:4px;display:flex;align-items:center;gap:8px}
+.logo span{color:var(--orange)}
+.nm{display:flex;gap:22px;list-style:none}
+.nm a{color:var(--gray);font-family:var(--c);font-size:.72rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color .3s;white-space:nowrap}.nm a:hover{color:var(--orange)}
+.nm a.accent{color:var(--orange)}
+.nav-r{display:flex;align-items:center;gap:14px}
+.nav-ph{font-family:var(--c);font-size:.68rem;color:var(--gray);letter-spacing:1px;display:none}
+.nb{background:var(--orange);color:#000;padding:9px 22px;font-family:var(--c);font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s}.nb:hover{background:var(--orange2)}
+
+/* ═══ HERO / CINEMA ═══ */
+#cinema{position:relative;height:100vh;overflow:hidden}
+.cin{width:100%;height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:var(--bg);overflow:hidden}
+.cin::before,.cin::after{content:'';position:absolute;top:0;bottom:0;width:1px;z-index:15;background:linear-gradient(180deg,transparent 5%,rgba(212,120,42,.12) 25%,rgba(212,120,42,.12) 75%,transparent 95%);pointer-events:none}
+.cin::before{left:20px}.cin::after{right:20px}
+#ptc{position:absolute;inset:0;z-index:1;pointer-events:none}
+.grd{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(212,120,42,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(212,120,42,.015) 1px,transparent 1px);background-size:60px 60px}
+.glw{position:absolute;width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(212,120,42,.05),transparent 60%);z-index:2;pointer-events:none;opacity:1;transition:opacity 1s}
+
+/* Title */
+.ttl{position:absolute;top:0;left:0;right:0;z-index:20;padding:80px 40px 0;text-align:center}
+.ttl .sub{font-family:var(--c);font-size:.72rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:10px;opacity:0;animation:fi .6s .3s forwards}
+.ttl h1{font-family:var(--h);font-size:clamp(1.8rem,4vw,3.2rem);font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:2px;line-height:.92;opacity:0;animation:fi .8s .5s forwards}
+.ttl h1 .ac{color:var(--orange)}
+.ttl .tagline{font-family:var(--b);font-size:.82rem;font-weight:300;color:rgba(255,255,255,.35);margin-top:10px;opacity:0;animation:fi .6s .7s forwards}
+@keyframes fi{to{opacity:1;transform:translateY(0)}}
+.ttl .sub,.ttl h1,.ttl .tagline{transform:translateY(10px)}
+
+/* Phase label */
+#ph{position:absolute;z-index:25;bottom:18%;left:50%;transform:translateX(-50%);font-family:var(--c);font-size:.75rem;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--orange);opacity:0;transition:opacity .4s;pointer-events:none;display:flex;align-items:center;gap:10px}
+#ph::before,#ph::after{content:'';width:18px;height:1px;background:var(--orange)}
+#ph.on{opacity:1}#ph.off{opacity:0}
+
+/* Scene */
+.sc{position:relative;z-index:10;width:min(80vw,880px);aspect-ratio:16/10;overflow:hidden}
+/*
+  НАСТРОЙКА ПОЗИЦИЙ — меняй width/top/left для каждого фото
+  чтобы машина совпадала между переходами
+*/
+.hud-corner{position:absolute;width:24px;height:24px;z-index:12;opacity:0;animation:hudIn 1s 1s forwards}
+.hud-tl{top:0;left:0;border-top:1px solid var(--orange);border-left:1px solid var(--orange)}
+.hud-tr{top:0;right:0;border-top:1px solid var(--orange);border-right:1px solid var(--orange)}
+.hud-bl{bottom:0;left:0;border-bottom:1px solid var(--orange);border-left:1px solid var(--orange)}
+.hud-br{bottom:0;right:0;border-bottom:1px solid var(--orange);border-right:1px solid var(--orange)}
+.hud-scanline{display:none}
+.hud-spec{position:absolute;top:50%;transform:translateY(-50%);z-index:12;display:flex;flex-direction:column;gap:14px;opacity:0;animation:hudIn 1s 1.5s forwards}
+.hud-left{right:calc(100% + 24px);align-items:flex-end;text-align:right}
+.hud-right{left:calc(100% + 24px);align-items:flex-start}
+.hs-line{width:30px;height:1px;background:rgba(212,120,42,.15);margin-bottom:3px}
+.hs-item{display:flex;flex-direction:column;gap:1px}
+.hs-label{font-family:var(--c);font-size:.45rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--orange);opacity:.45}
+.hs-val{font-family:var(--h);font-size:.8rem;font-weight:600;color:rgba(255,255,255,.28);letter-spacing:1px}
+.hud-dims{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);z-index:12;font-family:var(--c);font-size:.55rem;letter-spacing:3px;color:rgba(212,120,42,.18);opacity:0;animation:hudIn 1s 1.8s forwards}
+@keyframes hudIn{to{opacity:1}}
+
+/* Floating tech */
+.hf{position:absolute;z-index:5;font-family:var(--c);font-size:.45rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:rgba(212,120,42,.08);pointer-events:none;opacity:0;animation:hudIn 1.5s forwards}
+.hf1{top:20%;left:4%;animation-delay:.8s}.hf2{top:25%;left:4%;animation-delay:1s}.hf3{bottom:25%;right:4%;animation-delay:1.2s}.hf4{bottom:20%;right:4%;animation-delay:1.4s}
+
+/* Wireframe — visible, JS drives clip-path */
+.wireframe-img{
+  opacity:1!important;
+  filter:brightness(1.15)!important;
+  z-index:4!important;
+  clip-path:inset(0 0 100% 0);
+  transition:none!important;
+}
+
+/* Scan line — pure JS-driven, pixel-positioned */
+#scanLine{
+  position:absolute;left:0;right:0;height:3px;z-index:25;pointer-events:none;
+  background:linear-gradient(90deg,transparent 3%,rgba(212,120,42,.4) 20%,rgba(212,120,42,1) 50%,rgba(212,120,42,.4) 80%,transparent 97%);
+  box-shadow:0 0 8px 2px rgba(212,120,42,.7),0 0 22px 4px rgba(212,120,42,.35),0 0 55px 8px rgba(212,120,42,.12);
+  top:-4px;opacity:0;
+}
+
+.sc img{position:absolute;object-fit:contain;opacity:0;filter:blur(25px);transition:opacity .8s cubic-bezier(.22,1,.36,1),filter 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+
+/* Individual image alignment — tweak these to match */
+/* #i1 = truck.png (base reference) */
+#i1{
+  width:100%;height:auto;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  transform-origin:center;
+}
+#i1.live{opacity:1;filter:blur(0);transform:translate(-50%,-50%)}
+
+/* #i2 = wireframe.png — user-tuned position */
+#i2{
+  width:87%;height:auto;
+  top:49%;left:50%;
+  transform:translate(-50%,-50%);
+  transform-origin:center;
+}
+
+/* #i3 = complete1.png — shift to align truck body with #i2 */
+#i3{
+  width:100%;height:auto;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  transform-origin:center;
+  z-index:5!important;
+  opacity:0;
+}
+
+.sc img.out{opacity:0;filter:blur(12px)}
+
+/* Ring */
+.ring{position:absolute;bottom:22%;left:50%;transform:translateX(-50%);z-index:25;pointer-events:none;opacity:0;transition:opacity .5s}
+.ring.on{opacity:1}
+.ring svg{width:48px;height:48px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:2}.ring .bg{stroke:rgba(255,255,255,.04)}.ring .fg{stroke:var(--orange);stroke-dasharray:157;stroke-dashoffset:157;transition:stroke-dashoffset .3s}
+.ring span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--c);font-size:.55rem;letter-spacing:1px;color:var(--orange)}
+
+/* Badge */
+.bdg{position:absolute;z-index:30;bottom:12%;left:50%;transform:translateX(-50%) translateY(8px);background:var(--orange);color:#000;padding:9px 26px;font-family:var(--c);font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:0;transition:all .6s cubic-bezier(.22,1,.36,1);pointer-events:none;box-shadow:0 4px 25px rgba(212,120,42,.3)}
+.bdg.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Bottom */
+.bot{position:absolute;bottom:0;left:0;right:0;z-index:20;padding:0 40px 22px;display:flex;align-items:center;justify-content:center}
+.prog{display:flex;align-items:center;gap:10px}
+.prog .trk{width:140px;height:2px;background:rgba(255,255,255,.04);border-radius:1px;overflow:hidden}
+.prog .fl{height:100%;background:var(--orange);width:0%}
+.prog span{font-family:var(--c);font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+
+/* ═══ SITE ═══ */
+#site{opacity:1}
+.gd{height:1px;background:linear-gradient(90deg,transparent,rgba(212,120,42,.15),rgba(212,120,42,.3),rgba(212,120,42,.15),transparent)}
+.slbl{font-family:var(--c);font-size:.65rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.sh{font-family:var(--h);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700;text-transform:uppercase;line-height:1.05;letter-spacing:1px}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--bg2);padding:0}
+.st{padding:50px 30px;text-align:center;border-right:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(16px);transition:all .7s}.st:last-child{border-right:none}.st.v{opacity:1;transform:translateY(0)}
+.st-n{font-family:var(--h);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--orange);line-height:1}
+.st-l{font-family:var(--c);font-size:.65rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:8px}
+.stats-note{background:var(--bg2);padding:0 40px 50px;text-align:center}
+.stats-note p{font-size:.85rem;color:var(--gray);max-width:650px;margin:0 auto;line-height:1.8;border:1px solid rgba(212,120,42,.08);padding:20px 30px;background:rgba(212,120,42,.02)}
+
+/* Marquee */
+.marq{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.03);overflow:hidden;background:var(--bg2)}
+.marq-track{display:flex;gap:36px;animation:msc 22s linear infinite;width:max-content}
+.marq-track span{font-family:var(--h);font-size:1rem;font-weight:500;color:rgba(255,255,255,.06);white-space:nowrap;letter-spacing:2px;text-transform:uppercase}
+.marq-track .dot{font-size:.4rem;color:rgba(212,120,42,.15);display:flex;align-items:center}
+@keyframes msc{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SERVICES */
+#services{padding:100px 40px;background:var(--bg)}
+.srv-inner{max-width:1200px;margin:0 auto}
+.srv-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:50px;gap:30px}
+.srv-head p{font-size:.85rem;color:var(--gray);max-width:340px;line-height:1.7;text-align:right}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.srv{background:var(--bg2);border:1px solid rgba(255,255,255,.03);padding:32px 26px;opacity:0;transform:translateY(22px);transition:all .7s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.srv.v{opacity:1;transform:translateY(0)}.srv:hover{border-color:rgba(212,120,42,.25)}
+.srv::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--orange),transparent);transform:scaleX(0);transition:transform .5s}.srv:hover::before{transform:scaleX(1)}
+.srv-num{font-family:var(--h);font-size:2rem;font-weight:700;color:rgba(212,120,42,.06);line-height:1;margin-bottom:12px}
+.srv h3{font-family:var(--h);font-size:1.3rem;font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.srv p{font-size:.8rem;color:var(--gray);line-height:1.7;flex:1}
+
+/* SHOWCASE */
+#showcase{padding:100px 40px;background:var(--bg2)}
+.sci{max-width:1100px;margin:0 auto}
+.showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:40px}
+.sg{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.04);background:var(--bg3);opacity:0;transform:translateY(20px);transition:all .7s}
+.sg.v{opacity:1;transform:translateY(0)}
+.sg img{width:100%;transition:transform .6s}.sg:hover img{transform:scale(1.03)}
+.sg-w{background:#f2f2f2;padding:16px}.sg-w img{background:transparent}
+.sg-label{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(8,10,13,.8));font-family:var(--c);font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--orange)}
+
+/* GALLERY */
+#gallery{padding:100px 40px;background:var(--bg)}
+.gal-inner{max-width:1200px;margin:0 auto}
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:35px}
+.upload-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(212,120,42,.06);border:1px solid rgba(212,120,42,.15);color:var(--orange);font-family:var(--c);font-weight:600;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;cursor:pointer;transition:all .3s}.upload-btn:hover{background:rgba(212,120,42,.12)}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gal-item{position:relative;aspect-ratio:16/10;overflow:hidden;border:1px solid rgba(255,255,255,.04);background:var(--bg3);opacity:0;transform:translateY(18px);transition:all .7s}
+.gal-item.v{opacity:1;transform:translateY(0)}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s}.gal-item:hover img{transform:scale(1.04)}
+.gal-cap{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(8,10,13,.8));font-family:var(--c);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.gal-add{border:1px dashed rgba(212,120,42,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}.gal-add:hover{border-color:var(--orange);background:rgba(212,120,42,.02)}
+.gal-add-inner{text-align:center}.gal-plus{font-size:1.8rem;color:var(--orange);opacity:.3;margin-bottom:6px}
+.gal-add span{font-family:var(--c);font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+
+/* SPECS */
+#specs{padding:100px 40px;background:var(--bg2)}
+.specs-inner{max-width:1100px;margin:0 auto}
+.specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.spec{background:var(--bg3);border:1px solid rgba(255,255,255,.03);padding:28px 24px;opacity:0;transform:translateY(18px);transition:all .7s;position:relative;overflow:hidden}
+.spec.v{opacity:1;transform:translateY(0)}.spec:hover{border-color:rgba(212,120,42,.2)}
+.spec::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--orange);transition:height .5s}.spec:hover::before{height:100%}
+.spec-val{font-family:var(--h);font-size:1.5rem;font-weight:700;color:var(--orange);margin-bottom:6px}
+.spec h4{font-family:var(--h);font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.spec p{font-size:.78rem;color:var(--gray);line-height:1.7}
+
+/* CTA */
+#cta{padding:110px 40px;background:var(--bg);text-align:center;position:relative;overflow:hidden}
+#cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(212,120,42,.05),transparent 60%);pointer-events:none}
+.ctaz{position:relative;z-index:2}
+.ctah{font-family:var(--h);font-size:clamp(2rem,5vw,4rem);font-weight:700;text-transform:uppercase;line-height:.92;margin-bottom:16px;letter-spacing:2px}.ctah .ac{color:var(--orange)}
+.ctap{font-size:.9rem;color:var(--gray);max-width:440px;margin:0 auto 36px;line-height:1.8}
+.cta-contacts{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.cta-person{background:var(--bg2);border:1px solid rgba(255,255,255,.04);padding:20px 28px;text-align:left;min-width:240px;transition:border-color .3s}
+.cta-person:hover{border-color:rgba(212,120,42,.2)}
+.cta-person .name{font-family:var(--h);font-size:1rem;font-weight:600;margin-bottom:6px}
+.cta-person .phone{font-family:var(--h);font-size:1.1rem;font-weight:700;color:var(--orange)}
+.cta-person .wa{font-family:var(--c);font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-top:4px}
+.cta-addr{font-size:.82rem;color:var(--gray);margin-top:20px;line-height:1.7}
+.cta-addr a{color:var(--orange);text-decoration:underline}
+.cta-links{display:flex;gap:14px;justify-content:center;margin-top:20px}
+.cta-link{background:rgba(212,120,42,.08);border:1px solid rgba(212,120,42,.15);color:var(--orange);padding:10px 24px;font-family:var(--c);font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:all .3s;display:inline-block}.cta-link:hover{background:var(--orange);color:#000}
+
+/* FOOTER */
+footer{padding:40px;background:var(--bg2);border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:.65rem;color:var(--dim);letter-spacing:1px}
+.foot-links{display:flex;gap:20px}
+.foot-links a{font-family:var(--c);font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);transition:color .3s}.foot-links a:hover{color:var(--orange)}
+
+@media(max-width:1024px){.srv-grid{grid-template-columns:1fr 1fr}.specs-grid{grid-template-columns:1fr 1fr}.showcase-grid{grid-template-columns:1fr}.gal-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){nav{padding:14px 16px}.nm{display:none}.ttl{padding-top:76px}section{padding-left:16px!important;padding-right:16px!important}.stats{grid-template-columns:1fr 1fr}.st{border-bottom:1px solid rgba(255,255,255,.03)}.srv-grid,.specs-grid,.gal-grid{grid-template-columns:1fr}.srv-head,.gal-head{flex-direction:column;align-items:flex-start;gap:12px}.hud-spec,.hf{display:none}.sc{width:92vw}footer{flex-direction:column;gap:12px;text-align:center;padding:28px 16px}.foot-links{justify-content:center}.cta-contacts{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="#" class="logo">SAIMAN <span>4x4</span></a>
+  <ul class="nm">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#showcase">3D Модели</a></li>
+    <li><a href="#gallery">Работы</a></li>
+    <li><a href="#specs">Характеристики</a></li>
+    <li><a href="#cta">Контакты</a></li>
+    <li><a href="#" class="accent">Резка/гибка металла</a></li>
+  </ul>
+  <div class="nav-r"><button class="nb" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Заказать</button></div>
+</nav>
+
+<!-- ═══ HERO CINEMA ═══ -->
+<div id="cinema">
+  <div class="cin">
+    <canvas id="ptc"></canvas>
+    <div class="grd"></div>
+    <div class="glw" id="glw"></div>
+    <div class="hf hf1">SAIMAN ENGINEERING</div>
+    <div class="hf hf2">ASTANA, KZ</div>
+    <div class="hf hf3">STEEL 2-3MM</div>
+    <div class="hf hf4">LOAD: 200-250KG</div>
+    <div class="ttl">
+      <div class="sub">Кунги и оборудование для пикапов от производителя</div>
+      <h1>ПРОЧНОСТЬ. <span class="ac">ГЕРМЕТИЧНОСТЬ.</span><br>ИДЕАЛЬНАЯ ПОСАДКА</h1>
+      <div class="tagline">Проектируем • Производим • Устанавливаем — Астана</div>
+    </div>
+    <div id="ph" class="on">— ВАША МАШИНА —</div>
+    <div class="sc" id="scene">
+      <div class="hud-corner hud-tl"></div><div class="hud-corner hud-tr"></div><div class="hud-corner hud-bl"></div><div class="hud-corner hud-br"></div>
+      <div class="hud-scanline"></div>
+      <div id="scanLine"></div>
+      <div class="hud-spec hud-left">
+        <div class="hs-line"></div>
+        <div class="hs-item"><span class="hs-label">КАРКАС</span><span class="hs-val">Сталь 2-3мм</span></div>
+        <div class="hs-item"><span class="hs-label">ПОКРАСКА</span><span class="hs-val">Полимерная 2х</span></div>
+        <div class="hs-item"><span class="hs-label">ВЕС</span><span class="hs-val">100-120 кг</span></div>
+      </div>
+      <div class="hud-spec hud-right">
+        <div class="hs-line"></div>
+        <div class="hs-item"><span class="hs-label">НАГРУЗКА</span><span class="hs-val">200-250 кг</span></div>
+        <div class="hs-item"><span class="hs-label">МОНТАЖ</span><span class="hs-val">30 минут</span></div>
+        <div class="hs-item"><span class="hs-label">ГАРАНТИЯ</span><span class="hs-val">1 год</span></div>
+      </div>
+      <div class="hud-dims">SAIMAN 4x4 · ASTANA</div>
+      <img id="i1" src="https://raw.githubusercontent.com/kazakhbala01/kung/refs/heads/main/truck.png" alt="" class="live">
+      <img id="i2" src="https://raw.githubusercontent.com/kazakhbala01/kung/refs/heads/main/wireframe.png" alt="" class="wireframe-img">
+      <img id="i3" src="https://raw.githubusercontent.com/kazakhbala01/kung/refs/heads/main/complete1.png" alt="">
+    </div>
+    <div class="ring" id="ring"><svg viewBox="0 0 56 56"><circle class="bg" cx="28" cy="28" r="25"/><circle class="fg" id="ringFg" cx="28" cy="28" r="25"/></svg><span id="ringTxt">0%</span></div>
+    <div class="bdg" id="bdg">✓ ГОТОВО</div>
+    <div class="bot"><div class="prog"><span>Прогресс</span><div class="trk"><div class="fl" id="fl"></div></div><span id="pct">0%</span></div></div>
+  </div>
+</div>
+
+<!-- ═══ SITE ═══ -->
+<div id="site">
+<div class="gd"></div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="st"><div class="st-n" data-c="6">0</div><div class="st-l">Лет на рынке</div></div>
+  <div class="st"><div class="st-n" data-c="250">0</div><div class="st-l">Кунгов изготовлено</div></div>
+  <div class="st"><div class="st-n" data-c="20">0</div><div class="st-l">Моделей пикапов</div></div>
+  <div class="st"><div class="st-n" data-c="90">0</div><div class="st-l">Довольных клиентов</div></div>
+</div>
+<div class="stats-note"><p>Если вашего пикапа нет в нашей базе — мы проектируем с нуля 3D модель, согласуем с вами и производим</p></div>
+
+<!-- MARQUEE -->
+<div class="marq"><div class="marq-track">
+  <span>Toyota Hilux</span><span class="dot">◆</span><span>Ford Ranger</span><span class="dot">◆</span><span>Mitsubishi L200</span><span class="dot">◆</span><span>Nissan Navara</span><span class="dot">◆</span><span>Isuzu D-Max</span><span class="dot">◆</span><span>VW Amarok</span><span class="dot">◆</span>
+  <span>Toyota Hilux</span><span class="dot">◆</span><span>Ford Ranger</span><span class="dot">◆</span><span>Mitsubishi L200</span><span class="dot">◆</span><span>Nissan Navara</span><span class="dot">◆</span><span>Isuzu D-Max</span><span class="dot">◆</span><span>VW Amarok</span><span class="dot">◆</span>
+</div></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="srv-inner">
+    <div class="srv-head"><div><div class="slbl">Услуги</div><h2 class="sh">ЧТО МЫ ПРОИЗВОДИМ</h2></div><p>Полный спектр оборудования для пикапов от проектирования до установки</p></div>
+    <div class="srv-grid">
+      <div class="srv"><div class="srv-num">01</div><h3>Кунги</h3><p>Стальные кунги с двухэтапной полимерной покраской. Идеальная посадка на ваш пикап. Монтаж за 30 минут.</p></div>
+      <div class="srv"><div class="srv-num">02</div><h3>Багажники</h3><p>Экспедиционные багажники на крышу. Стальной каркас, грузоподъёмность до 250 кг.</p></div>
+      <div class="srv"><div class="srv-num">03</div><h3>Доп. топливные баки</h3><p>Дополнительные топливные баки для увеличения запаса хода на дальних маршрутах.</p></div>
+      <div class="srv"><div class="srv-num">04</div><h3>Пороги</h3><p>Силовые пороги из стали. Защита кузова и удобство посадки. Точная подгонка под модель.</p></div>
+      <div class="srv"><div class="srv-num">05</div><h3>Молле панели</h3><p>Модульные MOLLE панели для крепления оборудования внутри кунга и на дверях.</p></div>
+      <div class="srv"><div class="srv-num">06</div><h3>Калитки для запаски</h3><p>Калитки для запасного колеса. Надёжное крепление, удобный доступ к заднему борту.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="showcase">
+  <div class="sci">
+    <div class="slbl">Проектирование</div>
+    <h2 class="sh">СХЕМЫ И 3D МОДЕЛИ КУНГОВ</h2>
+    <p style="color:var(--gray);font-size:.85rem;line-height:1.7;max-width:500px;margin-top:10px">Каждый кунг проектируется в 3D. Чертежи, расчёты, согласование — до запуска производства.</p>
+    <div class="showcase-grid">
+      <div class="sg sg-w" style="background:#0a0a0a"><img src="https://raw.githubusercontent.com/kazakhbala01/kung/refs/heads/main/wireframe.png" alt=""><div class="sg-label">Wireframe проект</div></div>
+      <div class="sg"><img src="https://raw.githubusercontent.com/kazakhbala01/kung/refs/heads/main/canopy.png" alt="" style="padding:20px"><div class="sg-label">3D модель</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-inner">
+    <div class="gal-head"><div><div class="slbl">Наши работы</div><h2 class="sh">РЕАЛЬНЫЕ ПРОЕКТЫ</h2></div>
+      <label class="upload-btn"><span>+ Добавить фото</span><input type="file" accept="image/*" multiple id="galUpload" hidden></label>
+    </div>
+    <div class="gal-grid" id="galGrid">
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/kazakhbala01/kung/refs/heads/main/truck.png" alt=""><div class="gal-cap">Toyota Hilux</div></div>
+      <div class="gal-item"><img src="https://raw.githubusercontent.com/kazakhbala01/kung/refs/heads/main/complete1.png" alt=""><div class="gal-cap">Hilux + Кунг SAIMAN</div></div>
+      <div class="gal-item gal-add" id="galAdd"><div class="gal-add-inner"><div class="gal-plus">+</div><span>Перетащите фото</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section id="specs">
+  <div class="specs-inner">
+    <div class="slbl">Характеристики</div>
+    <h2 class="sh">ТЕХНИЧЕСКИЕ ДАННЫЕ</h2>
+    <div class="specs-grid">
+      <div class="spec"><div class="spec-val">2-3 мм</div><h4>Каркас сталь</h4><p>Конструкционная сталь с высокой жёсткостью и устойчивостью к деформации.</p></div>
+      <div class="spec"><div class="spec-val">2 этапа</div><h4>Полимерная покраска</h4><p>Двухэтапная полимерная покраска для максимальной защиты от коррозии.</p></div>
+      <div class="spec"><div class="spec-val">100-120 кг</div><h4>Вес кунга</h4><p>Оптимальный баланс прочности и веса. Не перегружает подвеску пикапа.</p></div>
+      <div class="spec"><div class="spec-val">200-250 кг</div><h4>Грузоподъёмность</h4><p>Нагрузка на крышу кунга до 250 кг. Для багажника, палатки, оборудования.</p></div>
+      <div class="spec"><div class="spec-val">30 мин</div><h4>Монтаж</h4><p>Быстрая установка без сверления кузова. Профессиональный монтаж в нашем цеху.</p></div>
+      <div class="spec"><div class="spec-val">1 год</div><h4>Гарантия</h4><p>Полная гарантия на конструкцию и покраску. Собственный сервисный центр.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="ctaz">
+    <div class="slbl">Заказать</div>
+    <h2 class="ctah">ЗАКАЖИТЕ <span class="ac">СВОЙ КУНГ</span></h2>
+    <p class="ctap">Свяжитесь с нами — рассчитаем стоимость и сроки под вашу модель пикапа</p>
+    <div class="cta-contacts">
+      <div class="cta-person">
+        <div class="name">Семен</div>
+        <a href="tel:+77773829955" class="phone">+7 777 382 99 55</a>
+        <div class="wa">WhatsApp</div>
+      </div>
+      <div class="cta-person">
+        <div class="name">Дмитрий</div>
+        <a href="tel:+77770006669" class="phone">+7 777 000 666 9</a>
+        <div class="wa">WhatsApp</div>
+      </div>
+    </div>
+    <div class="cta-addr">
+      📍 Астана, ул. Енлик-Кебек 13<br>
+      <a href="https://2gis.kz/astana/search/%D0%95%D0%BD%D0%BB%D0%B8%D0%BA-%D0%9A%D0%B5%D0%B1%D0%B5%D0%BA%2013" target="_blank">Открыть в 2ГИС</a>
+    </div>
+    <div class="cta-links">
+      <a href="https://wa.me/77773829955" class="cta-link" target="_blank">💬 WhatsApp</a>
+      <a href="https://instagram.com/saiman.kung" class="cta-link" target="_blank">📷 @saiman.kung</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="logo">SAIMAN <span>4x4</span></a>
+  <div class="foot-links">
+    <a href="#services">Услуги</a><a href="#gallery">Работы</a><a href="#specs">Характеристики</a><a href="#cta">Контакты</a>
+  </div>
+  <p>&copy; 2026 SAIMAN 4x4. Астана, Казахстан</p>
+</footer>
+</div>
+
+<script>
+/* Particles */
+const cv=document.getElementById('ptc'),cx=cv.getContext('2d');let cw,ch;const ds=[];
+function iP(){cw=cv.width=innerWidth;ch=cv.height=innerHeight;ds.length=0;for(let i=0;i<35;i++)ds.push({x:Math.random()*cw,y:Math.random()*ch,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*1+.3,a:Math.random()*.08+.02})}
+iP();addEventListener('resize',iP);
+(function dP(){cx.clearRect(0,0,cw,ch);ds.forEach(d=>{d.x+=d.vx;d.y+=d.vy;if(d.x<0)d.x=cw;if(d.x>cw)d.x=0;if(d.y<0)d.y=ch;if(d.y>ch)d.y=0;cx.beginPath();cx.arc(d.x,d.y,d.r,0,Math.PI*2);cx.fillStyle=`rgba(212,120,42,${d.a})`;cx.fill()});for(let i=0;i<ds.length;i++)for(let j=i+1;j<ds.length;j++){const dx=ds[i].x-ds[j].x,dy=ds[i].y-ds[j].y,dt=Math.sqrt(dx*dx+dy*dy);if(dt<120){cx.beginPath();cx.moveTo(ds[i].x,ds[i].y);cx.lineTo(ds[j].x,ds[j].y);cx.strokeStyle=`rgba(212,120,42,${.015*(1-dt/120)})`;cx.lineWidth=.5;cx.stroke()}}requestAnimationFrame(dP)})();
+
+/* ═══ CINEMA: pixel-accurate wipe + scan line via RAF ═══ */
+const i1=document.getElementById('i1'),i2=document.getElementById('i2'),i3=document.getElementById('i3');
+const ph=document.getElementById('ph'),glw=document.getElementById('glw'),bdg=document.getElementById('bdg');
+const ringFg=document.getElementById('ringFg'),ringTxt=document.getElementById('ringTxt'),fl=document.getElementById('fl'),pct=document.getElementById('pct');
+const sl=document.getElementById('scanLine');
+const sc=document.getElementById('scene');
+let started=false;const CIRC=157;
+
+function setRing(p){ringFg.style.strokeDashoffset=CIRC-(CIRC*p/100);ringTxt.textContent=Math.round(p)+'%'}
+function animRing(from,to,tS,tE){const dur=tE-tS,start=performance.now()+tS;function tick(now){const el=now-start;if(el<0){requestAnimationFrame(tick);return}const p=Math.min(1,el/dur);setRing(from+(to-from)*p);fl.style.width=(from+(to-from)*p)+'%';pct.textContent=Math.round(from+(to-from)*p)+'%';if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+/* Cubic bezier(.4,0,.2,1) — standard material ease via Newton's method */
+function cbEase(t){
+  if(t<=0)return 0;if(t>=1)return 1;
+  const x1=.4,y1=0,x2=.2,y2=1;
+  // Solve for x, then get y
+  let u=t;
+  for(let i=0;i<8;i++){
+    const cx=3*x1,bx=3*(x2-x1)-cx,ax=1-cx-bx;
+    const xc=((ax*u+bx)*u+cx)*u;
+    const dxc=(3*ax*u+2*bx)*u+cx;
+    if(Math.abs(dxc)<1e-6)break;
+    u-=(xc-t)/dxc;
+  }
+  const cy=3*y1,by=3*(y2-y1)-cy,ay=1-cy-by;
+  return ((ay*u+by)*u+cy)*u;
+}
+
+/* Core wipe animator — drives both clip-path AND scan line in the same RAF loop */
+function runWipe(duration, direction, imgReveal, imgHide, onDone){
+  // direction: 'down' = scan moves top→bottom, 'up' = bottom→top
+  // imgReveal: element being revealed, imgHide: element being hidden
+  const scR=sc.getBoundingClientRect();
+  const revR=imgReveal.getBoundingClientRect();
+  const hidR=imgHide ? imgHide.getBoundingClientRect() : null;
+  const scH=scR.height;
+
+  // Relative positions of image edges vs scene top
+  const revTop =revR.top -scR.top;
+  const revBot =revR.bottom-scR.top;
+  const revH   =revR.height;
+  const hidTop =hidR ? hidR.top -scR.top : 0;
+  const hidH   =hidR ? hidR.height : 0;
+
+  sl.style.opacity='1';
+  imgReveal.style.transition='none';
+  if(imgHide) imgHide.style.transition='none';
+
+  const start=performance.now();
+  function tick(now){
+    const raw=Math.min((now-start)/duration,1);
+    const p=cbEase(raw);
+
+    if(direction==='down'){
+      // Scan line: -4px → scH+4px
+      const slY=-4 + p*(scH+8);
+      sl.style.top=slY+'px';
+
+      // Reveal imgReveal from top: visible bottom = slY - revTop (in img coords)
+      const visBot=slY-revTop;
+      const clipBot=Math.max(0, revH - visBot);
+      imgReveal.style.clipPath=`inset(0 0 ${clipBot}px 0)`;
+
+      // Hide imgHide from top: visible top = slY - hidTop (crop that many px from top)
+      if(imgHide){
+        const hidClipTop=Math.max(0, slY - hidTop);
+        imgHide.style.clipPath=`inset(${hidClipTop}px 0 0 0)`;
+      }
+    } else {
+      // direction === 'up': scan line goes scH+4 → -4
+      const slY=(scH+4) - p*(scH+8);
+      sl.style.top=slY+'px';
+
+      // Reveal imgReveal from bottom: visible top = revTop → slY approaches revTop
+      // visible portion = from slY down to revBot
+      const visTop=slY - revTop;      // where scan is in img coords (from img top)
+      const clipTop=Math.max(0, visTop);
+      imgReveal.style.clipPath=`inset(${clipTop}px 0 0 0)`;
+
+      // Hide imgHide from bottom: clip bottom = imgHide bottom - slY
+      if(imgHide){
+        const hidClipBot=Math.max(0, hidTop + hidH - slY);
+        imgHide.style.clipPath=`inset(0 0 ${hidClipBot}px 0)`;
+      }
+    }
+
+    if(raw<1){requestAnimationFrame(tick);}
+    else{
+      sl.style.opacity='0';
+      imgReveal.style.clipPath='none';
+      if(imgHide) imgHide.style.clipPath='inset(0 0 200% 0)';
+      if(onDone) onDone();
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+function run(){
+  if(started)return;started=true;
+
+  // Prepare initial states
+  i2.style.clipPath='inset(0 0 100% 0)';
+  i3.style.opacity='0';i3.style.filter='blur(0)';i3.style.clipPath='inset(100% 0 0 0)';
+
+  const T1=0,T2=450,T3=2700,T4=4700;
+  document.getElementById('ring').classList.add('on');
+
+  // Phase 1
+  setTimeout(()=>{ph.textContent='— ВАША МАШИНА —';ph.classList.add('on')},T1);
+  animRing(0,33,T1,T2);
+
+  // Phase 2: scan down → reveal wireframe, hide truck
+  setTimeout(()=>{ph.classList.remove('on')},T2-180);
+  setTimeout(()=>{
+    ph.textContent='— ПРОЕКТИРОВАНИЕ —';ph.classList.add('on');glw.style.opacity='1.8';
+    runWipe(1800,'down', i2, i1, null);
+  },T2);
+  animRing(33,66,T2,T3);
+
+  // Phase 3: scan up → reveal final, hide wireframe
+  setTimeout(()=>{ph.classList.remove('on')},T3-180);
+  setTimeout(()=>{
+    ph.textContent='— ГОТОВЫЙ РЕЗУЛЬТАТ —';ph.classList.add('on');glw.style.opacity='2';
+    i3.style.opacity='1';
+    runWipe(1800,'up', i3, i2, null);
+  },T3);
+  animRing(66,100,T3,T4);
+
+  // Done
+  setTimeout(()=>{ph.classList.remove('on');bdg.classList.add('on');setTimeout(()=>{bdg.style.transition='opacity .5s';bdg.style.opacity='0'},2000)},T4);
+}
+setTimeout(()=>{if(!started)run()},1000);
+addEventListener('scroll',()=>{if(!started)run()},{passive:true});
+
+/* NAV */
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>50));
+
+/* Reveal + counters */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');const c=e.target.querySelector('[data-c]');if(c&&!c.dataset.d){c.dataset.d='1';const t=+c.dataset.c,s=t===90?'%+':'+';let cur=0;const st=Math.ceil(t/30);const iv=setInterval(()=>{cur=Math.min(cur+st,t);c.textContent=cur.toLocaleString()+s;if(cur>=t)clearInterval(iv)},30)}}}),{threshold:.1});
+document.querySelectorAll('.st,.srv,.sg,.gal-item,.spec,.pc').forEach((el,i)=>{el.style.transitionDelay=(i%4)*.1+'s';obs.observe(el)});
+
+/* Gallery upload */
+const galGrid=document.getElementById('galGrid'),galAdd=document.getElementById('galAdd'),galUp=document.getElementById('galUpload');
+function addPh(f){if(!f||!f.type.startsWith('image/'))return;const u=URL.createObjectURL(f);const d=document.createElement('div');d.className='gal-item v';d.innerHTML=`<img src="${u}" alt=""><div class="gal-cap">${f.name.split('.')[0]}</div>`;galGrid.insertBefore(d,galAdd);d.style.opacity='0';d.style.transform='translateY(16px)';requestAnimationFrame(()=>{d.style.transition='all .5s';d.style.opacity='1';d.style.transform='translateY(0)'})}
+galUp.addEventListener('change',e=>{[...e.target.files].forEach(addPh)});
+galAdd.addEventListener('click',()=>galUp.click());
+galAdd.addEventListener('dragover',e=>{e.preventDefault();galAdd.style.borderColor='var(--orange)'});
+galAdd.addEventListener('dragleave',()=>{galAdd.style.borderColor=''});
+galAdd.addEventListener('drop',e=>{e.preventDefault();galAdd.style.borderColor='';[...e.dataTransfer.files].forEach(addPh)});
+</script>
+</body>
+</html>
